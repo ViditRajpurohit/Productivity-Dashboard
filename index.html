@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Brave, Edge, Safari */
+        }
+    </style>
+    <!--#27374D
+        #9DB2BF
+        #DDE6ED-->
+</head>
+<body id="mainBg" class="theme-pri">
+    
+    <!-- home page -->
+    <main id="homePage" class="h-[92vh] lg:h-screen hidden px-2 py-4 lg:p-4">
+        <nav id="navBar" class="px-2 lg:px-6  h-16 theme-sec  rounded-xl flex justify-between items-center ">
+            <p class=" lg:text-[25px] font-medium text-white">Productivity Dashboard</p>
+            <button id="themeBtn" class="text-[12px] h-6 px-1 lg:text-[15px] h-8 px-3 bg-white text-black font-medium rounded-sm active:scale-95">Change Theme</button>
+        </nav>
+
+        <!-- time div -->
+        <div class="relative flex  lg:w-full h-[40%] mt-5 rounded-xl overflow-hidden ">
+
+            <img class="w-full h-full object-cover object-top"
+            src="./Assets/Images/timeBg.jpg" alt="">
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-black/30"></div>
+
+            <!-- Date -->
+            <p class="absolute top-4 left-4 text-md lg:top-6 lg:left-8 text-white lg:text-xl z-10">
+            <span id="dateText">MyDate</span>
+            </p>
+
+        <!-- Day + Time -->
+            <div class="absolute flex flex-col top-16 left-4 gap-12 lg:left-8 lg:flex-row z-10  items-baseline lg:gap-3 text-white">
+                <p class="text-3xl lg:text-6xl font-bold" id="dayText">Sunday</p>
+                <p class="hidden lg:text-6xl lg:block font-bold">,</p>
+                <p class="text-xl lg:text-5xl font-bold" id="timeText">00:00</p>
+            </div>
+        
+
+            <!-- Location -->
+            <p class="absolute bottom-6 left-4 lg:left-8 text-white text-xl z-10" id="cityText"></p>
+
+            <!-- //weather -->
+             <div class="absolute top-10 right-8 z-10 text-white">
+                <p class="text-6xl font-bold mb-4" id="temperatureText"></p>
+                <p class="text-2xl ml-2" id="statusText"></p>
+             </div>
+
+        </div>
+
+        
+
+
+         <!-- section tabs -->
+          <section class="h-[45%] mb-1 mt-4 lg:flex">
+            <!-- first section -->
+            <div class="w-full  flex justify-evenly gap-4 mt-4 lg:w-[50%]">
+                <div id="todoTab" class="w-[40%]">
+                    <img  class="object-cover h-full w-full rounded-4xl active:scale-95" src="./Assets/Images/todoimage.jpg" alt="">
+                </div>
+                <div id="plannerTab" class="w-[40%]">
+                    <img  class="object-cover h-full w-full rounded-4xl active:scale-95" src="./Assets/Images/dailyplanner.png" alt="">
+                </div>
+            </div>
+
+             <!-- second section -->
+            <div class="flex justify-evenly gap-4 mt-4 lg:w-[50%]">
+                <div id="motivationTab" class="w-[40%]">
+                    <img  class="object-cover h-full w-full rounded-4xl active:scale-95" src="./Assets/Images/quoteimg.png" alt="">
+                </div>
+                <div id="timerTab" class="w-[40%]">
+                    <img  class="object-cover h-full w-full rounded-4xl active:scale-95" src="./Assets/Images/pobodamaro.png" alt="">
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+
+    <!-- //todoPage -->
+    <main id="todoPage" class="px-2  pt-4    lg:p-4 h-[92vh] lg:h-screen ">
+        <nav class="flex  justify-between mx-2">
+            <p class="text-white w-[50%] font-bold text-xl lg:text-4xl lg:w-full">Your Personalized Task List</p>
+            <button id="todoCloseBtn" class="bg-red-500 px-2  h-[40px] text-white  font-medium lg:px-4 lg:py-3 lg:h-full lg:text-xl rounded-xl active:scale-95">Close</button>
+        </nav>
+
+        <section class="w-full  h-[85%] lg:h-[80%] mt-7 flex flex-col gap-5 lg:flex-row">
+            <div id="taskEnterSection" class=" theme-sec p-3  h-[40vh] lg:w-[40%] lg:h-full rounded-2xl lg:p-6">
+    
+                <!-- Task Title -->
+                <input
+                id="taskTitle"
+                type="text"
+                placeholder="Enter Task"
+                class="w-full mb-4 px-2 lg:px-4 py-3 rounded-xl outline-none h-[40px] lg:text-lg lg:h-auto bg-[#FBF5DE]"
+                />
+
+                <!-- Task Details -->
+                <textarea
+                id="taskDetails"
+                placeholder="Enter Details"
+                class="w-full h-[80px] lg:h-[55%] mb-2 lg:mb-4 px-2 lg:px-4 py-3 rounded-xl outline-none resize-none lg:text-lg bg-[#FBF5DE]"
+                ></textarea>
+
+                
+
+                <!-- Add Button -->
+                <button id="addTaskBtn" class="w-full bg-yellow-500 text-black font-semibold py-3 rounded-xl lg:mt-3 active:scale-95">Add Task</button>
+
+            </div>
+
+            <div id="taskList" class="theme-sec  lg:w-[60%] h-full rounded-2xl px-3 overflow-y-auto overflow-x-hidden"></div>
+        </section>
+    </main>
+
+
+    <!-- daily planner page -->
+    <main id="plannerPage" class="h-screen fixed lg:static hidden px-2 py-4 lg:p-4">
+        <nav class="flex justify-between mx-2">
+            <p class="text-white font-bold text-2xl mr-2 lg:text-4xl">Plan your day to be more Productive</p>
+            <button id="plannerCloseBtn" class="bg-red-500 text-white px-2 h-[40px] mt-2 lg:mt-0 lg:text-xl font-medium lg:px-4 lg:py-3 lg:h-auto rounded-xl active:scale-95">Close</button>
+        </nav>
+
+        <!-- main section for time div -->
+        <section class="hide-scrollbar w-full h-[80vh] lg:h-[85vh] theme-sec rounded-3xl mt-6 flex gap-3 lg:gap-6 p-4 lg:p-6 overflow-y-auto">
+
+            <!-- LEFT COLUMN -->
+            <div class=" w-1/2 h-full flex flex-col gap-4 ">
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">   
+                    <p class="text-sm text-white">5:00 - 6:00</p>
+                        <input type="text" placeholder="..."
+                        class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium  lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">7:00 - 8:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">9:00 - 10:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">11:00 - 12:00</p>
+                    <input type="text" placeholder="..." 
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">13:00 - 14:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">15:00 - 16:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">17:00 - 18:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">19:00 - 20:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">21:00 - 22:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+            </div>
+
+             <!-- RIGHT COLUMN -->
+            <div class="theme-sec w-1/2 h-full flex flex-col gap-4 ">
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">6:00 - 7:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">8:00 - 9:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">10:00 - 11:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">12:00 - 13:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">14:00 - 15:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">16:00 - 17:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">18:00 - 19:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2 w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">20:00 - 21:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2  w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+
+                <div class="theme-pri bg-[#d6b48c] rounded-xl px-4 py-3">
+                    <p class="text-sm text-white">22:00 - 23:00</p>
+                    <input type="text" placeholder="..."
+                    class="mt-2  w-full bg-transparent placeholder:text-4xl outline-none text-white font-medium lg:text-3xl placeholder:text-white/70">
+                </div>
+            </div>
+
+        </section>
+
+        
+    </main>
+
+
+    <!-- motivation page -->
+    <main id="motivationPage" class="h-[80vh] lg:h-screen p-4 hidden">
+        <nav class="flex justify-end mx-2">
+            <button id="motivationCloseBtn" class="bg-red-500 text-white px-2 h-[40px] mt-2 lg:mt-0 lg:text-xl font-medium lg:px-4 lg:py-3 lg:h-auto rounded-xl active:scale-95">Close</button>
+        </nav>
+
+        <!-- Quote Section -->
+        <section class="relative flex justify-center items-center h-[75vh]">
+
+            <!-- BLUR GLOW (background only) -->
+            <div id="blurBg" class="absolute bg-yellow-500 blur-[90px] h-[80%] w-[90%] lg:h-[60%] lg:w-[60%]  opacity-50"></div>
+
+                <!-- QUOTE CARD (NOT BLURRED) -->
+                <div id="quoteCard" class="relative z-10 bg-yellow-400 h-[40vh] w-[95%] lg:w-[50%] lg:h-[35vh] rounded-xl p-6 flex flex-col justify-between">
+
+                    <!-- Quote Label -->
+                    <div class="theme-pri w-[160px] flex justify-center py-3 items-center rounded-xl">
+                        <span class="text-white font-medium">Quote of the Day</span>
+                    </div>
+
+                    <!-- Quote Text -->
+                    <p id="quoteText" class="text-black text-xl md:text-2xl font-semibold">
+                        Loading...
+                    </p>
+
+                    <!-- Author -->
+                    <div class="w-full flex justify-end">
+                        <div class="theme-pri inline-flex  px-4 py-3 items-center rounded-xl max-w[70%]">
+                            <span id="authorText" class="text-white font-medium break-all text-right">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+
+    <!-- timer page -->
+     <main id="timerPage" class="lg:h-screen px-2 py-4 lg:p-4 hidden static">
+        <nav class=" flex justify-between w-full  lg:mx-2 lg:w-auto">
+            <p class="text-white font-bold text-2xl lg:text-4xl">Study with me !</p>
+            <button id="timerCloseBtn" class="bg-red-500 text-white px-2 h-[40px] lg:mt-2 lg:mt-0 lg:text-xl font-medium lg:px-4 lg:py-3 lg:h-auto rounded-xl active:scale-95">Close</button>
+        </nav>
+
+        <section class="flex flex-col  justify-center items-center h-[80vh] w-full">
+            <div class="flex justify-center mb-6 active:scale-95">
+                <span id="currSession" class="bg-emerald-500 text-white px-4 py-1 rounded-md text-sm font-medium">
+                Work Session
+                </span>
+            </div>
+            
+            <!-- Timer -->
+            <div class="text-center mb-10">
+                <p id="timer" class="text-white text-7xl font-bold tracking-wider">
+                    25:00
+                </p>
+            </div>
+
+            <div class="flex justify-center gap-4">
+                <button id="startBtn" class="bg-[#3a3a3a] text-white px-6 py-2 rounded-lg hover:bg-[#4a4a4a] active:scale-95">
+                    Start
+                </button>
+                <button id="pauseBtn" class="bg-[#3a3a3a] text-white px-6 py-2 rounded-lg hover:bg-[#4a4a4a] active:scale-95">
+                    Pause
+                </button>
+                <button id="resetBtn" class="bg-[#3a3a3a] text-white px-6 py-2 rounded-lg hover:bg-[#4a4a4a] active:scale-95">
+                    Reset
+                </button>
+            </div>
+
+        </section>
+    
+     </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
